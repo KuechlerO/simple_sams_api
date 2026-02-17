@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "simple_sams_api"
+version = "0.1.0"
+description = "A simple Python API for interacting with the SAMS system"
+authors = [
+    { name="Oliver Küchler", email="oliver.kuechler@charite.de" }
+]
+dependencies = [
+    "requests"
+]
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+keywords = ["SAMS", "API", "phenopacket", "bioinformatics"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics"
+]
+
+[project.urls]
+Homepage = "https://github.com/Kuechler/simple_sams_api"
+Documentation = "https://github.com/KuechlerO/simple_sams_api#readme"
+Source = "https://github.com/KuechlerO/simple_sams_api"
+Tracker = "https://github.com/KuechlerO/simple_sams_api/issues"
