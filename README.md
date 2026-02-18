@@ -2,6 +2,8 @@
 
 This module provides a Python interface for interacting with the [SAMS](https://www.genecascade.org/sams-cgi/Patients.cgi) (Symptom Annotation Made Simple) web service, allowing you to authenticate, retrieve phenopacket data, and extract relevant medical terms for downstream analysis.
 
+Full documentation is available here: [https://kuechlero.github.io/simple_sams_api/](https://kuechlero.github.io/simple_sams_api/).
+
 ## Features
 - **Authentication**: Login to SAMS using username/password or credentials file.
 - **Phenopacket Retrieval**: Download all phenopackets or a specific phenopacket by patient ID.
@@ -15,7 +17,7 @@ This module provides a Python interface for interacting with the [SAMS](https://
 Simply copy the module into your project and install the required dependencies:
 
 ```
-pip install requests
+pip install simple_sams_api
 ```
 
 ### Example
