@@ -23,7 +23,7 @@ jobs:
           python-version: '3.13'
 
       # ADJUST THIS: install all dependencies (including pdoc)
-      - run: pip install -e .
+      - run: pip install -e . && pip install pdoc
       # ADJUST THIS: build your documentation into docs/.
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
       - run: pdoc ./simple_baserow_api/base.py -o ./docs --force --html && mv ./docs/base.html ./docs/index.html
@@ -35,7 +35,7 @@ jobs:
   # Deploy the artifact to GitHub pages.
   # This is a separate job so that only actions/deploy-pages has the necessary permissions.
   deploy:
-    needs: build
+    needs: build_docs
     runs-on: ubuntu-latest
     permissions:
       pages: write
