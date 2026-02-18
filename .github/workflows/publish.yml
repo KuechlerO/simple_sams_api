@@ -1,10 +1,17 @@
 name: "Publish"
 
+# on:
+#   push:
+#     tags:
+#       # Publish on any tag starting with a `v`, e.g., v0.1.0
+#       - v*
+
+
+# build the documentation whenever a new push is made
 on:
   push:
-    tags:
-      # Publish on any tag starting with a `v`, e.g., v0.1.0
-      - v*
+    branches:
+      - main
 
 jobs:
   run:
@@ -21,6 +28,14 @@ jobs:
         uses: astral-sh/setup-uv@v7
       - name: Install Python 3.13
         run: uv python install 3.13
+
+      # Dynamically update the version in pyproject.toml based on the tag
+      - name: Set version from tag
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          sed -i "s/^version = .*/version = \"${TAG#v}\"/" pyproject.toml
+          cat pyproject.toml  # Debug: Check the updated version
+
       - name: Build
         run: uv build
       # Check that basic features work and we didn't miss to include crucial files
