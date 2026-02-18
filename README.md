@@ -14,7 +14,7 @@ Full documentation is available here: [https://kuechlero.github.io/simple_sams_a
 ## Usage
 
 ### Installation
-Simply copy the module into your project and install the required dependencies:
+The package can be installed via pip:
 
 ```
 pip install simple_sams_api
