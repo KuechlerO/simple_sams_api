@@ -1,11 +1,10 @@
 name: "Build and Deploy Documentation"
 
-# build the documentation when a new tag is pushed, e.g., v0.1.0, v1.0.0, etc.
+# build the documentation whenever a new push is made
 on:
   push:
-    tags:
-      # Publish on any tag starting with a `v`, e.g., v0.1.0
-      - v*
+    branches:
+      - main
 
 
 # security: restrict permissions for CI jobs.
@@ -26,7 +25,7 @@ jobs:
       - run: pip install -e . && pip install pdoc
       # ADJUST THIS: build your documentation into docs/.
       # We use a custom build script for pdoc itself, ideally you just run `pdoc -o docs/ ...` here.
-      - run: pdoc --output-dir ./docs ./simple_baserow_api/base.py && mv ./docs/simple_baserow_api/base.html ./docs/index.html
+      - run: pdoc --output-dir ./docs ./simple_sams_api/base.py && mv ./docs/simple_sams_api/base.html ./docs/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: docs/
