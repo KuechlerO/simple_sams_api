@@ -24,9 +24,15 @@ pip install simple_sams_api
 ```python
 from simple_sams_api.base import SAMSapi, extract_HPO_terms_from_phenopacket
 
-# Initialize API and login
+# Initialize API
 api = SAMSapi()
+# Initialize with a custom SAMS URL if needed:
+api2 = SAMSapi(sams_url="https://example.org/sams-cgi")
+
+# Login with username and password
 api.login_with_username('your_email', 'your_password')
+# Alternatively, you can use a credentials file:
+api.login_with_credentials_file('path/to/credentials.txt')
 
 # Retrieve all phenopackets
 phenopackets = api.get_phenopackets()

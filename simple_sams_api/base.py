@@ -5,18 +5,29 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-SAMS_URL = "https://www.genecascade.org/sams-cgi"
-LOGIN_URL = f"{SAMS_URL}/login.cgi"
-EXPORT_PHENOPACKETS_URL = f"{SAMS_URL}/ExportPhenopacket.cgi?export_all=1"
-EXPORT_PHENOPACKET_BY_ID_URL = (
-    f"{SAMS_URL}/export_phenopacket.cgi?external_id={{patient_id}}"
-)
+DEFAULT_SAMS_URL = "https://www.genecascade.org/sams-cgi"
 
 
 @dataclass
 class SAMSapi:
+    sams_url: str = DEFAULT_SAMS_URL
     session: requests.Session = field(default_factory=requests.Session)
     phenopackets: dict = None
+
+    def __post_init__(self):
+        self.sams_url = self.sams_url.rstrip("/")
+    
+    @property
+    def login_url(self):
+        return f"{self.sams_url}/login.cgi"
+
+    @property
+    def export_phenopackets_url(self):
+        return f"{self.sams_url}/ExportPhenopacket.cgi?export_all=1"
+
+    @property
+    def export_phenopacket_by_id_url(self):
+        return f"{self.sams_url}/export_phenopacket.cgi?external_id={{patient_id}}"
 
     @property
     def loggedIn(self):
@@ -24,7 +35,7 @@ class SAMSapi:
 
     def _login(self, username, password):
         data = {"email": username, "password": password}
-        resp = self.session.post(LOGIN_URL, data=data)
+        resp = self.session.post(self.login_url, data=data)
         resp.raise_for_status()
 
     def login_with_credentials_file(self, credentials_file: str):
@@ -58,7 +69,7 @@ class SAMSapi:
         Returns:
             List[dict]: List of phenopackets
         """
-        resp = self.session.get(EXPORT_PHENOPACKETS_URL)
+        resp = self.session.get(self.export_phenopackets_url)
         resp.raise_for_status()
         all_data = resp.json()
         return all_data
@@ -76,7 +87,7 @@ class SAMSapi:
             dict: Phenopacket for the patient
         """
         resp = self.session.get(
-            EXPORT_PHENOPACKET_BY_ID_URL.format(patient_id=patient_id)
+            self.export_phenopacket_by_id_url.format(patient_id=patient_id)
         )
         resp.raise_for_status()
         patient_data = resp.json()
