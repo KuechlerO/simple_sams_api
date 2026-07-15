@@ -27,7 +27,7 @@ class SAMSapi:
 
     @property
     def export_phenopacket_by_id_url(self):
-        return f"{self.sams_url}/export_phenopacket.cgi?external_id={{patient_id}}"
+        return f"{self.sams_url}/ExportPhenopacket.cgi?external_id={{patient_id}}"
 
     @property
     def loggedIn(self):
