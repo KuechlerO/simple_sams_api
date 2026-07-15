@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "simple_sams_api"
-version = "0.1.9"
+version = "0.1.10"
 description = "A simple Python API for interacting with the SAMS system"
 authors = [
     { name="Oliver Küchler", email="oliver.kuechler@charite.de" }
